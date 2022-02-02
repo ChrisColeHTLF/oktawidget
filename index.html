@@ -60,6 +60,114 @@
             location.reload();
         }
     </script>
+
+    <div id="login" class="col-md-4 col-md-offset-4 card enter">
+        <div class="card-header row" id="divHeader">
+            <div class="pull-right language-selection login-orangetext login-font12px login-language-margin " ng-show="hasLanguageSelection"><span><form method="post" action="default.aspx" name="LANGFORM"><input type="hidden" name="LANGUAGE">&nbsp;<a href="javascript:void(0);" onclick="javascript:document.LANGFORM.LANGUAGE.value='ENG';document.LANGFORM.submit();" class="login-link-disable login-font12px">English</a>&nbsp;/&nbsp;<a href="javascript:void(0);" onclick="javascript:document.LANGFORM.LANGUAGE.value='SPA';document.LANGFORM.submit();" class="login-font12px">Español</a></form></span></div>
+        </div>
+        <div class="card-body login-greeting">
+            <h2 class="text-center login-orangetext" ng-show="greeting"><b>Welcome to the HTLF Retirement Plan Services Login!</b></h2>
+            <form action="default.aspx" id="loginform" method="post" name="loginform" onsubmit="return ProcessLogin();" AUTOCOMPLETE="off"><input type="hidden" name="BFPT" id="BFPT"><input type="hidden" name="BFGUID" id="BFGUID"><input type="hidden" name="LANGUAGE" value="ENG">
+                <div id="loginformcell">
+                    <div id="transition" style="display:none;">
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="text-center login-orangetext">
+                            <div style="margin: auto;" class="progressanim"><img src="graphics/custom/loading_anim.gif" border="0" alt="LOADING...please wait" />
+                                <div id="one" style="margin:auto;width:300px;text-align:center;" class="progressmsg">Please wait...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="loginpage" class="loginpage-margintop">
+                        <div class="form-group username"><label for="USERID" class="required"><b>Username</b></label><input type="hidden" name="USERID" id="USERID"><input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;"><input type="password" name="password_fake"
+                                id="password_fake" value="" style="display:none;"><input type="text" id="ReliusUserID" name="ReliusUserID" class="form-control loginpage-userpass-margintop" required="required" onChange="javascript:ReliusUserIDChange();"></div>
+                        <div class="form-group password"><label for="PASSWDTXT" class="required"><b>Password</b></label><input type="password" name="PASSWDTXT" id="PASSWDTXT" value="" required="required" class="form-control loginpage-userpass-margintop"></div>
+                        <div class="form-group clearfix loginpage-default-clearfix">&nbsp;<a href="#" class="forgot-password pull-right">Forgot User ID or Password?</a></div>
+                        <div class="form-group loginpage-roleselection-margintop"><select name="usertype" id="usertype" class="form-control"><option value="participant" selected="true">Participant</option>
+        <option value="sponsor">Sponsor</option>
+        <option value="advisor">Advisor</option></select>
+                            <script type="text/javascript">
+                                var userTypeCnt = document.getElementById('usertype').length;
+                                if (userTypeCnt <= 1) {
+                                    document.getElementById('usertype').style.display = 'none';
+                                }
+                            </script>
+                            <div class="remember loginpage-remember-paddingbottom"><label class="sidesmed login-font12px"><input type="hidden" name="SAVEUSER"><input type="CHECKBOX" name="SAVEUSERID" class="loginpage-rememberme" onClick="SaveReliusUser();">&nbsp;&nbsp;Remember me on this device</label></div>
+                        </div>
+                        <div class="form-group pin topmed"><label><small></small></label></div>
+                        <div class="form-group  submit"><button type="submit" value="submit" class="btn" onclick="javascript:SetGuid();GenerateBrowserFootPrint();HideHeaderFooter(); SaveReliusUser();">Login</button></div>
+                    </div>
+                </div><input type="hidden" name="DROP" value=""><input type="hidden" name="LoginButton" value="true"><input type="hidden" name="AppVersion" value=""></form>
+        </div>
+        <div class="card-footer loginpage-cardfooter-paddingbottom" id="divFooter">
+            <div><input type="hidden" name="sabi" value=""></div>
+        </div>
+    </div>
+    </div>
+    <div id="newUser" class="col-md-4 col-md-offset-4 card leave-right">
+        <div class="card-header row">
+            <div class="new-user pull-left"><a class="white newUserBack" href="#"><span class="glyphicons circle_arrow_left icon"></span>&nbsp;</a><a class="white newUserBack login-font12px" href="#">Back</a></div>
+            <div class="pull-right language-selection login-orangetext login-font12px" ng-show="hasLanguageSelection"><span><form method="post" action="default.aspx" name="NWLANGFORM"><input type="hidden" name="LANGUAGE">&nbsp;<a href="javascript:void(0);" onclick="javascript:document.NWLANGFORM.LANGUAGE.value='ENG';document.NWLANGFORM.submit();" class="login-link-disable login-font12px">English</a>&nbsp;/&nbsp;<a href="javascript:void(0);" onclick="javascript:document.NWLANGFORM.LANGUAGE.value='SPA';document.NWLANGFORM.submit();" class="login-font12px">Español</a></form></span></div>
+        </div>
+        <div class="card-body">
+            <h2 class="text-center login-orangetext" ng-show="greeting"><b>New User</b></h2>
+            <div class="row"></div>
+            <form class="form ">
+                <div class="form-group submit row">
+                    <div class="col-sm-7 col-sm-push-4"><button type="button" value="next" class="btn" onclick="javascript:Submit();">NEXT</button></div>
+                    <div class="col-sm-4 col-sm-pull-7 topsm"><a href="javascript:void(0)" onclick="javascript:window.location.href=&quot;default.aspx&quot;" class="cancelButton">CANCEL</a></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="forgotPassword" class="col-md-4 col-md-offset-4 card leave-left">
+        <div class="card-header row">
+            <div class="new-user pull-left"><a class="white forgotPasswordBack" href="#"><span class="glyphicons circle_arrow_left icon"></span>&nbsp;</a><a class="white forgotPasswordBack login-font12px" href="#">Back</a></div>
+            <div class="pull-right language-selection login-orangetext login-font12px" ng-show="hasLanguageSelection"><span><form method="post" action="default.aspx" name="FPLANGFORM"><input type="hidden" name="LANGUAGE">&nbsp;<a href="javascript:void(0);" onclick="javascript:document.FPLANGFORM.LANGUAGE.value='ENG';document.FPLANGFORM.submit();" class="login-link-disable login-font12px">English</a>&nbsp;/&nbsp;<a href="javascript:void(0);" onclick="javascript:document.FPLANGFORM.LANGUAGE.value='SPA';document.FPLANGFORM.submit();" class="login-font12px">Español</a></form></span></div>
+        </div>
+        <div class="card-body">
+            <h2 class="text-center login-orangetext " ng-show="greeting"><b>Request Credentials</b></h2>
+            <div class="toplg"></div>
+            <form><label class="form-group"><div>Please enter the required info below. A message will be sent to your e-mail address and allow you to view/reset your password.</div> <div class='topsm'><small>Note: This is only available if your email address has been provided to us and if you have previously entered the alternate verification info.</small></div></label></form>
+            <div class="row">
+                <form id="verification" method="post" name="verification" class="form form-login" action="forgotpassword.aspx" AUTOCOMPLETE="off"><input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;"><input type="password" name="password_fake" id="password_fake" value="" style="display:none;"><input type="hidden" name="RANDOMNUM" value="">
+                    <input
+                        type="hidden" name="DROP" value=""><input type="hidden" name="LoginButton" value="true"><input type="hidden" name="STEP" value="1"><input type="hidden" name="SEC_STEP" value="GOnQIIl65CVCfqyYzAPCrQ==LhMcRP4n0/o2qLKmQ+5WHgA="><input type="hidden" name="NEWWEBUSER" value="">
+                        <input
+                            type="hidden" name="SEC_PARTID" value="1"><input type="hidden" name="SEC_STATUS" value=""><input type="hidden" name="SEC_PASSWORD" value="VmbEYXrq2zu7Z1HXLrUXMA==jbQqIXdKMU3N6ZxTrwNDxwA="><input type="hidden" name="ISAUTORESETIDP" value=""><input type="hidden" name="NEWUSERID"
+                                value=""><input type="hidden" name="OLDUSERID" value="">
+                            <div class="form-group role"><label for="role">Select Role:</label><select name="SELECTIONTYPE" id="SELECTIONTYPE" class="form-control" onchange="javascript:ShowHideParticipantSection(this)"><option value="P" selected>Participant</option>
+        <option value="S">Sponsor</option></select></div>
+                            <div id="partsection">
+                                <div class="form-group row"><label for="ssnumInput" class="required">SSN# (XXXXXXXXX)</label><input type="password" id="SSN" name="INITIALSSN" value="" autocomplete="new-password" size="9" maxlength="9" class="form-control" ng-model="user.ssnum"></div>
+                                <div class="form-group  row"><label for="fnameInput" class="required">Birth Date: (MM/DD/YYYY)</label><input type="text" name="BIRTHDATE1" value="" maxlength="10" onChange="isDate(this);" id="BIRTHDATE1" class="form-control " ng-model="user.bdate"
+                                        data-date-start-date="01/01/1900" data-date-end-date="javascript:new Date()"></div>
+                                <div class="form-group  row"><label for="lnameInput" class="required">Zip Code:  (XXXXX)</label><input class="form-control" type="text" maxlength="10" name="ZIPCODE1" ng-model="user.zip" id="ZIPCODE1"></div>
+                            </div>
+                            <div id="sponsorsection" style="display:none">
+                                <div class="form-group row"><label for="ssnumInput" class="required">Login ID</label><input type="text" id="LOGINID" name="LOGINID" value="" size="30" maxlength="30" class="form-control" ng-model="user.loginid"></div>
+                                <div class="form-group row"><label for="ssnumInput" class="required">First name</label><input type="password" name="FIRSTNAM" value="" size="20" maxlength="20" id="FIRSTNAM" class="form-control" ng-model="user.firstnam"></div>
+                                <div class="form-group row"><label for="ssnumInput" class="required">Last name</label><input type="password" name="LASTNAM" value="" size="20" maxlength="20" id="LASTNAM" class="form-control" ng-model="user.lastnam"></div>
+                            </div>
+                            <div class="col-sm-12 hidden-xs">&nbsp;</div>
+                            <div class="form-group submit row">
+                                <div class="col-sm-7 col-sm-push-4"><button type="button" value="next" class="btn" onclick="javascript:submitForm()">NEXT</button></div>
+                                <div class="col-sm-4 col-sm-pull-9 topsm"><a href="javascript:void(0)" class="cancelButton" onclick="javascript:window.location.href=&quot;default.aspx&quot;">CANCEL</a></div>
+                            </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <script type="text/javascript">
+                function showConfirmPassword() {
+                    showConfirm2('');
+                }
+            </script>
+        </div>
+    </div>
+    </div>
+
+
 </body>
 
 </html>
