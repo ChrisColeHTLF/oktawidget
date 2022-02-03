@@ -583,20 +583,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                             <div class="container">
 
-                                                <div id="messageBox" class="jumbotron">
-                                                    You are not logged in. Get outta here! Shoo! >:S
-                                                </div>
+
                                                 <!-- where the sign-in form will be displayed -->
                                                 <div id="okta-login-container"></div>
                                                 <button id="logout" class="button" onclick="logout()" style="display: none">Logout</button>
                                             </div>
                                             <script type="text/javascript">
                                                 const oktaSignIn = new OktaSignIn({
-                                                    baseUrl: "https://${yourOktaDomain}",
-                                                    redirectUri: '{{https://${yourAppRedirectUri} configured in your OIDC app}}',
-                                                    clientId: "${yourClientId}",
+                                                    baseUrl: "https://heartlandfinancial.oktapreview.com",
+                                                    redirectUri: 'http://localhost:8080/authorization-code/callback',
+                                                    clientId: "0oa21xq9644n14ETn1d7",
                                                     authParams: {
-                                                        issuer: "https://${yourOktaDomain}/oauth2/default"
+                                                        issuer: "https://heartlandfinancial.oktapreview.com/oauth2/default"
                                                     }
                                                 });
 
