@@ -230,6 +230,8 @@
     <!-- Studio Beacon  -->
     <script type="text/javascript" src="./index_files/evergage.min.js.download"></script>
     <!-- End Head Javascript -->
+    <script src="https://global.oktacdn.com/okta-signin-widget/6.0.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+    <link href="https://global.oktacdn.com/okta-signin-widget/6.0.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body class="html front not-logged-in no-sidebars page-node page-node- page-node-551 node-type-landing-page domain-www-heartlandrps-com" style="">
@@ -579,12 +581,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                             <h2 class="rtecenter"><span style="font-size:22px;">Login</span></h2>
 
-                                            <p class="rtecenter"><span style="font-size:20px;"><em>Okta</em></span><br> &nbsp;
-                                            </p>
+                                            <div class="container">
 
-                                            <p class="rtecenter"><a class="button" href="https://www.htlfrps.com/individuals/financial-education/Pay-Yourself-First?utm_source=Homepage&amp;utm_medium=Hero&amp;utm_campaign=News">Click Here to View</a></p>
+                                                <div id="messageBox" class="jumbotron">
+                                                    You are not logged in. Get outta here! Shoo! >:S
+                                                </div>
+                                                <!-- where the sign-in form will be displayed -->
+                                                <div id="okta-login-container"></div>
+                                                <button id="logout" class="button" onclick="logout()" style="display: none">Logout</button>
+                                            </div>
+                                            <script type="text/javascript">
+                                                const oktaSignIn = new OktaSignIn({
+                                                    baseUrl: "https://${yourOktaDomain}",
+                                                    redirectUri: '{{https://${yourAppRedirectUri} configured in your OIDC app}}',
+                                                    clientId: "${yourClientId}",
+                                                    authParams: {
+                                                        issuer: "https://${yourOktaDomain}/oauth2/default"
+                                                    }
+                                                });
 
-                                            <p class="rtecenter">&nbsp;</p>
+                                                oktaSignIn.authClient.token.getUserInfo().then(function(user) {
+                                                    document.getElementById("messageBox").innerHTML = "Hello, " + user.email + "! You are *still* logged in! :)";
+                                                    document.getElementById("logout").style.display = 'block';
+                                                }, function(error) {
+                                                    oktaSignIn.showSignInToGetTokens({
+                                                        el: '#okta-login-container'
+                                                    }).then(function(tokens) {
+                                                        oktaSignIn.authClient.tokenManager.setTokens(tokens);
+                                                        oktaSignIn.remove();
+
+                                                        const idToken = tokens.idToken;
+                                                        document.getElementById("messageBox").innerHTML = "Hello, " + idToken.claims.email + "! You just logged in! :)";
+                                                        document.getElementById("logout").style.display = 'block';
+
+                                                    }).catch(function(err) {
+                                                        console.error(err);
+                                                    });
+                                                });
+
+                                                function logout() {
+                                                    oktaSignIn.authClient.signOut();
+                                                    location.reload();
+                                                }
+                                            </script>
 
                                             <style>
                                                 .box-2 *:not(.button) {
